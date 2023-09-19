@@ -1,0 +1,6 @@
+langchain
+langsmith
+pydantic
+python-dotenv
+openai
+rdflib    

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+version = "0.0.1"
+name = "sparql-langchain"
+description = "A project to develop a SPARQL langchain to query SPARQL endpoints"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["Langchain","Bio2RDF","SPARQL","Query Answering"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "langchain",
+    "langsmith",
+    "pydantic",
+    "python-dotenv",
+    "openai",
+    "rdflib"    
+]
+
+[tool.ruff]
+line-length = 120

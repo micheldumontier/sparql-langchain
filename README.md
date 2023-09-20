@@ -1,3 +1,19 @@
+This project aims to create a general purpose LangChain component to perform queries over SPARQL endpoints.
+It derives from the existing [GraphSPARQLQAChain](https://python.langchain.com/docs/use_cases/more/graph/graph_sparql_qa), but
+aims to address some shortcomings including dealing with very large schemas, improved schema guidance, and better quality answers 
+for existing SPARQL endpoints such as [Bio2RDF](https://bio2rdf.org) and [Wikidata](https://wikidata.org).
+
+Current status:
+* This project is in pre-alpha and is demonstrative of the approach. 
+
+Future work:
+* Be able to specify a target SPARQL endpoint to query against.
+* Generate, store, and load an RDF schema for a SPARQL endpoint.
+* Identify a relevant fragment of the schema to guide the construction.
+* Use other LLMs such as LLAMA2 instead of OpenAI GPT
+* Iterate until a valid SPARQL query can be generated
+* Implement a conversational AI to i) improve query answering and ii) support human feedback reinforcement learning.
+
 ## Install
 
 Create and activate virtual env

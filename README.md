@@ -7,6 +7,7 @@ Current status:
 * This project is in pre-alpha and is demonstrative of the approach. 
 
 Future work:
+* Refactor the context generation to remove hardcoding of bio2rdf schema and instructions.
 * Be able to specify a target SPARQL endpoint to query against.
 * Generate, store, and load an RDF schema for a SPARQL endpoint.
 * Identify a relevant fragment of the schema to guide the construction.

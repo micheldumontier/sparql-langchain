@@ -1,17 +1,17 @@
 import os 
 from langchain.chat_models import ChatOpenAI
-from langchain.chains import GraphSparqlQAChain
+#from langchain.chains import GraphSparqlQAChain
 #from langchain.graphs import RdfGraph
 
 
-from langsmith import Client
-from langchain.agents import AgentType, initialize_agent, load_tools
-from langchain.callbacks.tracers.langchain import wait_for_all_tracers
+# from langsmith import Client
+# from langchain.agents import AgentType, initialize_agent, load_tools
+# from langchain.callbacks.tracers.langchain import wait_for_all_tracers
 
 from rdfgraph import RdfGraph
 from sparqlchain import MyGraphSparqlQAChain
 
-import asyncio
+# import asyncio
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -32,9 +32,7 @@ graph = RdfGraph(
 chain = MyGraphSparqlQAChain.from_llm(
     ChatOpenAI(temperature=0), graph=graph, verbose=True
 )
-context ="""
 
-# """
 # Query: Which drugs can be used to treat hypertension? Return the drug name and indication for the first 5 results
 # Answer: Answer: The drugs that can be used to treat hypertension are Latanoprost, Mecamylamine, Guanethidine, Pargyline, and Valsartan
 # Query What is the mechanism of action for Lepirudin? Return the text that describes the mechanism of action. 
@@ -47,13 +45,15 @@ context ="""
 # Answer: The target Prothrombin is from the species Homo sapiens.
 
 query = """
-Query: What is the mechanism of action for Lepirudin?
+Query: Use Bio2RDF (https://bio2rdf.org/sparql) to answer the following question: What is the mechanism of action for Lepirudin?
 """
-context = """
-Context: Use Bio2RDF to answer the question. 
 
+#Context: Use Bio2RDF to answer the question. 
+schema = """
 Schema:
-Only use the following tuples to create the SPARQL query. The statements are written as a tuple (t1, rel, t2), where t1 is related to t2 by relation rel.
+Only use the following tuples to create the SPARQL query. 
+The statements are written as a tuple (t1, rel, t2), where t1 is related to t2 by relation rel.
+
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
@@ -78,6 +78,9 @@ dv:Target dv:go-component xsd:Literal .
 dv:Target dv:cellular-location xsd:Literal .
 dv:Target dv:x-taxonomy tv:Resource .
 tv:Resource tv:scientific-name xsd:Literal .
+"""
+
+instructions = """
 
 Instructions:
 Use the schema to guide the development of the SPARQL query. 
@@ -90,6 +93,8 @@ Apply the DISTINCT on variables in a SELECT query.
 Only use the results from the database query to answer the question.
 """
 
+
+answer = chain.run( query=query, context = schema + instructions )
 print(f'Query: {query}')
-answer = chain.run( query + context )
 print(f'Answer: {answer}')
+print('done')

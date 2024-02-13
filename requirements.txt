@@ -3,4 +3,5 @@ langsmith
 pydantic
 python-dotenv
 openai
-rdflib    
+rdflib
+validators

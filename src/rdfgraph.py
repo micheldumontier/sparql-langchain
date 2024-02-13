@@ -9,6 +9,8 @@ from typing import (
 if TYPE_CHECKING:
     import rdflib
 
+from rdflib.plugins.sparql.parser import parseQuery
+from rdflib.plugins.sparql.algebra import translateQuery
 
 prefixes = {
     "owl": """PREFIX owl: <http://www.w3.org/2002/07/owl#>\n""",
@@ -159,6 +161,22 @@ class RdfGraph:
         Returns the schema of the graph database.
         """
         return self.schema
+    
+    def checkSPARQLQuery(self, query: str) -> bool:
+        try:
+            # Parse the SPARQL query
+            parsed_query = parseQuery(query)
+            
+            # Translate the parsed query (this step can catch additional issues)
+            translateQuery(parsed_query)
+            
+            return True
+        except Exception as e:
+            print(f"Invalid SPARQL query: {e}")
+            return False
+
+
+
 
     def query(
         self,

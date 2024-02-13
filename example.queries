@@ -1,0 +1,22 @@
+Question: What is the mechanism of action for Lepirudin?
+
+Generated SPARQL query:
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dv: <http://bio2rdf.org/drugbank_vocabulary:>
+PREFIX tv: <http://bio2rdf.org/taxonomy_vocabulary:>
+
+SELECT DISTINCT ?mechanism
+WHERE {
+    ?drug rdf:type dv:Drug .
+    ?drug dct:title ?drugTitle .
+    FILTER (CONTAINS(LCASE(?drugTitle), "lepirudin"))
+    ?drug dv:mechanism-of-action ?mechanismObj .
+    ?mechanismObj dct:description ?mechanism .
+}
+
+Answer: Lepirudin forms a stable non-covalent complex with alpha-thrombin, thereby abolishing its ability to cleave fibrinogen and initiate the clotting cascade. The inhibition of thrombin prevents the blood clotting cascade.
+

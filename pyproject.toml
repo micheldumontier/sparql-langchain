@@ -18,7 +18,8 @@ dependencies = [
     "pydantic",
     "python-dotenv",
     "openai",
-    "rdflib"    
+    "rdflib",
+    "validators"
 ]
 
 [tool.ruff]
